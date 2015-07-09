@@ -2,6 +2,7 @@
 
 var React = require('react-native');
 var REQUEST_URL = 'http://192.241.212.180:9004/api/users';
+var userScreen = require('./userScreen');
 
 var {
   StyleSheet,
@@ -12,6 +13,8 @@ var {
   ListView,
   Image
 } = React;
+
+var letoken = {};
 
 
 var dashboard = React.createClass({
@@ -34,6 +37,7 @@ var dashboard = React.createClass({
     fetchData: function() {
 
       var token = JSON.parse(this.props.response._bodyInit).token;
+      letoken = token;
       console.log('le token: ',token);
 
       fetch(REQUEST_URL, {
@@ -74,8 +78,8 @@ var dashboard = React.createClass({
      selectMovie: function(movie: Object) {
        this.props.navigator.push({
          title: movie.title,
-         component: moviescreen,
-         passProps: {movie},
+         component: userScreen,
+         passProps: {movie, letoken},
        });
      },
 
@@ -102,7 +106,7 @@ var dashboard = React.createClass({
              />
              <View style={styles.rightContainer}>
                <Text style={styles.title}>{movie.name}</Text>
-               <Text style={styles.year}>{movie.comments.length}Comments</Text>
+               <Text style={styles.year}>{movie.comments.length} Reviews</Text>
              </View>
            </View>
          </TouchableHighlight>
