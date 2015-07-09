@@ -37,13 +37,13 @@ var loginScreen = React.createClass({
 
   setEmail: function(text) {
     credentials.email = text;
-    console.log(credentials.email);
+    // console.log(credentials.email);
 
   },
 
   setPassword: function(text) {
     credentials.password = text;
-    console.log(credentials.password);
+    // console.log(credentials.password);
   },
 
   submitLogin: function() {
@@ -65,20 +65,19 @@ var loginScreen = React.createClass({
         password: credentials.password,
       })
     }).then( function(response) {
+      console.log('response:',response);
+
       if (response.status === 200) {
         console.log('success!');
+        theNavigator.push({
+          title: 'Dashboard',
+          component: dashboard,
+          passProps: {response},
+        });
       }
       else {
         console.log('failure');
       }
-    }).then( function(response) {
-      console.log(theNavigator);
-
-      theNavigator.push({
-        title: 'Dashboard',
-        component: dashboard,
-        passProps: {credentials},
-      });
     })
   },
 
