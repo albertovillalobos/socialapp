@@ -5,55 +5,92 @@ var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
 
+
+
 var {
   StyleSheet,
   Text,
   View,
-  TouchableHighlight
+  TouchableHighlight,
+  Image
 } = React;
 
+
+
 var credentials = {};
-var TestView = require('./TestView.js');
+var Photo = require('./Photo.react.js');
+var Info = require('./Info.react.js');
+
 
 
 var LoginScreen = React.createClass({
+  getInitialState: function(){
+    return {
+      user: null,
+    };
+  },
+
+  componentWillMount: function(){
+    this.updateView();
+  },
+
+  updateView: function(){
+    var _this = this;
+    FBLoginManager.getCredentials(function(error, credentials){
+      if (!error) {
+        _this.setState({ user : credentials });
+      } else {
+        _this.setState({ user : null });
+      }
+    });
+  },
+
 
   render: function() {
+    var _this = this;
+    var user = this.state.user;
+
     return (
+
       <View style={styles.container}>
+        { user && <Photo user={user} /> }
+        { user && <Info user={user} /> }
+
+
         <Text style={styles.welcome}>SocialApp</Text>
-          <FBLogin style={{ margin: 10, }}
-            permissions={["email","user_friends"]}
-            onLogin={function(data){
-              console.log("Logged in!");
-              console.log(data);
-              _this.setState({ user : data.credentials });
-            }}
-            onLogout={function(){
-              console.log("Logged out.");
-              _this.setState({ user : null });
-            }}
-            onLoginFound={function(data){
-              console.log("Existing login found.");
-              console.log(data);
-              _this.setState({ user : data.credentials });
-            }}
-            onLoginNotFound={function(){
-              console.log("No user logged in.");
-              _this.setState({ user : null });
-            }}
-            onError={function(data){
-              console.log("ERROR");
-              console.log(data);
-            }}
-            onCancel={function(){
-              console.log("User cancelled.");
-            }}
-            onPermissionsMissing={function(data){
-              console.log("Check permissions!");
-              console.log(data);
-            }}
+        <FBLogin style={{ margin: 10, }}
+          permissions={["email","user_friends"]}
+          onLogin={function(data){
+            console.log("Logged in!");
+            console.log(data);
+            _this.setState({ user : data.credentials });
+          }}
+          onLogout={function(){
+            console.log("Logged out.");
+            _this.setState({ user : null });
+          }}
+          onLoginFound={function(data){
+            console.log("Existing login found.");
+            console.log(data);
+            _this.setState({ user : data.credentials });
+          }}
+          onLoginNotFound={function(){
+            console.log("No user logged in.");
+            _this.setState({ user : null });
+          }}
+          onError={function(data){
+            console.log("ERROR");
+            console.log(data);
+          }}
+          onCancel={function(){
+            console.log("User cancelled.");
+          }}
+          onPermissionsMissing={function(data){
+            console.log("Check permissions!");
+            console.log(data);
+          }}
         />
+        <Text>{ user ? user.token : "N/A" }</Text>      
       </View>
     );
   },
@@ -62,36 +99,6 @@ var LoginScreen = React.createClass({
   _submitLogin: function() {
 
     console.log('Submitting with button');
-
-  //   var theNavigator = this.props.navigator;
-  //   console.log('credentials:', credentials);
-  //   var apiserver = 'http://192.241.212.180:9004/auth/local';
-  //
-  //   fetch(apiserver, {
-  //     method: 'post',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify( {
-  //       email: credentials.email,
-  //       password: credentials.password,
-  //     })
-  //   }).then( function(response) {
-  //     console.log('response:',response);
-  //
-  //     if (response.status === 200) {
-  //       console.log('success!');
-  //       theNavigator.push({
-  //         title: 'TestView',
-  //         component: TestView,
-  //         passProps: {response},
-  //       });
-  //     }
-  //     else {
-  //       console.log('failure');
-  //     }
-  //   })
   },
 
 });
@@ -134,7 +141,10 @@ var styles = StyleSheet.create({
     marginBottom:10,
     color: '#fff'
 
-  }
+  },
+  bottomBump: {
+    marginBottom: 15,
+  },
 });
 
 module.exports = LoginScreen;
