@@ -20,7 +20,7 @@ var LoginScreen = React.createClass({
       <View style={styles.container}>
         <Text style={styles.welcome}>SocialApp</Text>
         <TouchableHighlight style={styles.submitButton}
-          underlayColor='#CCC'
+          underlayColor='#1b3978'
           onPress={() => this._submitLogin()}>
             <Text style={styles.submitText}>Connect using Facebook</Text>
       	</TouchableHighlight>
@@ -78,39 +78,14 @@ var styles = StyleSheet.create({
   welcome: {
     fontSize: 50,
     textAlign: 'center',
-    margin: 10,
     fontWeight: '100'
   },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-  textField: {
-    height: 40,
-    marginTop: 5,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 9,
-    backgroundColor: '#FFF',
-    color: '#222',
-    textAlign: 'center',
-    alignItems: 'center',
-  },
-  passwordTextField: {
-    height: 40,
-    marginTop: 5,
-    marginLeft: 20,
-    marginRight: 20,
-    paddingLeft: 9,
-    backgroundColor: '#FFF',
-    color: '#222'
-  },
+
   submitButton: {
     marginTop: 10,
     marginLeft: 20,
     marginRight: 20,
-    backgroundColor: '#BBB',
+    backgroundColor: '#3b5998',
     alignItems: 'center',
     borderRadius: 5,
     borderWidth: 1,
@@ -124,10 +99,11 @@ var styles = StyleSheet.create({
   submitText: {
     alignItems: 'center',
     fontSize: 18,
-    marginLeft: 5,
-    marginRight: 5,
-    marginTop: 5,
-    marginBottom:5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10,
+    marginBottom:10,
+    color: '#fff'
 
   }
 });
