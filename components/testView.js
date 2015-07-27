@@ -11,7 +11,7 @@ var {
 } = React;
 
 
-var testView = React.createClass({
+var TestView = React.createClass({
 
   render: function() {
     return (
@@ -37,4 +37,4 @@ var styles = StyleSheet.create({
 })
 
 
-module.exports = testView;
+module.exports = TestView;
