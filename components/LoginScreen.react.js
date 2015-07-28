@@ -4,9 +4,6 @@ var React = require('react-native');
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
 
-
-
-
 var {
   StyleSheet,
   Text,
@@ -15,13 +12,10 @@ var {
   Image
 } = React;
 
-
-
 var credentials = {};
 var Photo = require('./Photo.react.js');
 var Info = require('./Info.react.js');
-
-
+var Dashboard = require('./Dashboard.react.js');
 
 var LoginScreen = React.createClass({
   getInitialState: function(){
@@ -31,14 +25,24 @@ var LoginScreen = React.createClass({
   },
 
   componentWillMount: function(){
-    this.updateView();
+    this._updateView();
   },
 
-  updateView: function(){
+  _updateView: function(){
     var _this = this;
-    FBLoginManager.getCredentials(function(error, credentials){
+    var Navigator = this.props.navigator;
+    FBLoginManager.getCredentials(function(error, user){
       if (!error) {
-        _this.setState({ user : credentials });
+        _this.setState({ user : user });
+
+        // console.log('user will mount', user.credentials.userId)
+
+        Navigator.push({
+          component: Dashboard,
+          name: 'Dashboard',
+          user: user.credentials
+        })
+
       } else {
         _this.setState({ user : null });
       }
@@ -53,44 +57,42 @@ var LoginScreen = React.createClass({
     return (
 
       <View style={styles.container}>
-        { user && <Photo user={user} /> }
-        { user && <Info user={user} /> }
 
 
         <Text style={styles.welcome}>SocialApp</Text>
         <FBLogin style={{ margin: 10, }}
           permissions={["email","user_friends"]}
           onLogin={function(data){
-            console.log("Logged in!");
-            console.log(data);
+            // console.log("Logged in!");
+            // console.log(data);
             _this.setState({ user : data.credentials });
           }}
           onLogout={function(){
-            console.log("Logged out.");
+            // console.log("Logged out.");
             _this.setState({ user : null });
           }}
           onLoginFound={function(data){
-            console.log("Existing login found.");
-            console.log(data);
+            // console.log("Existing login found.");
+            // console.log(data);
             _this.setState({ user : data.credentials });
           }}
           onLoginNotFound={function(){
-            console.log("No user logged in.");
+            // console.log("No user logged in.");
             _this.setState({ user : null });
           }}
           onError={function(data){
-            console.log("ERROR");
-            console.log(data);
+            // console.log("ERROR");
+            // console.log(data);
           }}
           onCancel={function(){
-            console.log("User cancelled.");
+            // console.log("User cancelled.");
           }}
           onPermissionsMissing={function(data){
-            console.log("Check permissions!");
-            console.log(data);
+            // console.log("Check permissions!");
+            // console.log(data);
           }}
         />
-        <Text>{ user ? user.token : "N/A" }</Text>      
+
       </View>
     );
   },

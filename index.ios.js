@@ -16,43 +16,31 @@ var {
 } = React;
 
 var LoginScreen = require('./components/LoginScreen.react.js');
-// var testView = require('./components/testView.js');
-// var dashboard = require('./components/dashboard.js');
-
-var credentials = {};
 
 var socialapp = React.createClass({
+
+  _renderScene(route, navigator) {
+    var Component = route.component;
+
+    return (
+      <View style={{flex: 1}}>
+        <Component navigator={navigator} route={route} />
+      </View>
+    );
+  },
+
+
+
 
   render: function() {
     return (
       <Navigator
-        initialRoute={{name: 'login', index: 0}}
-        renderScene={(route, navigator) =>
-          <LoginScreen
-            name={route.name}
-            onForward={() => {
-              var nextIndex = route.index + 1;
-              navigator.push({
-                name: 'Scene ' + nextIndex,
-                index: nextIndex,
-              });
-            }}
-            onBack={() => {
-              if (route.index > 0) {
-                navigator.pop();
-              }
-            }}
-          />
-        }
-      />
+        renderScene={this._renderScene}
+        initialRoute={{
+          component: LoginScreen
+        }}
 
-      // <Navigator
-      //   style={styles.navcontainer}
-      //   initialRoute={{
-      //     title: 'Login',
-      //     component: loginScreen,
-      //   }}
-      //   />
+      />
     );
   },
 
