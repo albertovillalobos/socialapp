@@ -52,7 +52,6 @@ var Dashboard = React.createClass({
         <Text>Welcome { info && info.name }</Text>
       </View>
     );
-
   },
 
   // getInitialState: function() {
@@ -155,7 +154,7 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: 'white',
   }
 })
 

@@ -25,24 +25,32 @@ var LoginScreen = React.createClass({
   },
 
   componentWillMount: function(){
-    this._updateView();
+    console.log(this.state)
+    if (this.state.user) {
+      Navigator.push({
+        name: 'Dashboard',
+        route: Dashboard,
+        user: this.state.user
+      });
+    } else {
+      this._updateView();
+    }
+  },
+
+
+  _moveOn: function() {
+    var Navigator = this.props.navigator;
+    Navigator.push({
+      name: 'Dashboard',
+      route: Dashboard
+    })
   },
 
   _updateView: function(){
     var _this = this;
-    var Navigator = this.props.navigator;
     FBLoginManager.getCredentials(function(error, user){
       if (!error) {
         _this.setState({ user : user });
-
-        // console.log('user will mount', user.credentials.userId)
-
-        Navigator.push({
-          component: Dashboard,
-          name: 'Dashboard',
-          user: user.credentials
-        })
-
       } else {
         _this.setState({ user : null });
       }
@@ -53,6 +61,7 @@ var LoginScreen = React.createClass({
   render: function() {
     var _this = this;
     var user = this.state.user;
+    var Navigator = this.props.navigator;
 
     return (
 
@@ -63,44 +72,47 @@ var LoginScreen = React.createClass({
         <FBLogin style={{ margin: 10, }}
           permissions={["email","user_friends"]}
           onLogin={function(data){
-            // console.log("Logged in!");
-            // console.log(data);
+            console.log("Logged in!");
+            console.log(data);
+            Navigator.push({
+              component: Dashboard,
+              Name: 'Dashboard',
+              user: data.credentials
+            })
             _this.setState({ user : data.credentials });
           }}
           onLogout={function(){
-            // console.log("Logged out.");
+            console.log("Logged out.");
             _this.setState({ user : null });
           }}
           onLoginFound={function(data){
-            // console.log("Existing login found.");
-            // console.log(data);
-            _this.setState({ user : data.credentials });
+            console.log("Existing login found.");
+            console.log(data);
+            Navigator.push({
+              component: Dashboard,
+              Name: 'Dashboard',
+              user: data.credentials
+            })            
           }}
           onLoginNotFound={function(){
-            // console.log("No user logged in.");
+            console.log("No user logged in.");
             _this.setState({ user : null });
           }}
           onError={function(data){
-            // console.log("ERROR");
-            // console.log(data);
+            console.log("ERROR");
+            console.log(data);
           }}
           onCancel={function(){
-            // console.log("User cancelled.");
+            console.log("User cancelled.");
           }}
           onPermissionsMissing={function(data){
-            // console.log("Check permissions!");
-            // console.log(data);
+            console.log("Check permissions!");
+            console.log(data);
           }}
         />
 
       </View>
     );
-  },
-
-
-  _submitLogin: function() {
-
-    console.log('Submitting with button');
   },
 
 });
