@@ -5,6 +5,10 @@
 'use strict';
 
 var React = require('react-native');
+var Parse = require('parse').Parse;
+Parse.initialize('ECzSLmodKLoPK8UTUdpgFpIoBZAjSOPm0C96tStg', 'Mb9tndUoLRm0YXWSavO3xbIGyDFsod5vAaH9AYm6');
+
+
 var {
   AppRegistry,
   StyleSheet,

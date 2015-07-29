@@ -40,6 +40,10 @@ var Dashboard = React.createClass({
       .done();
   },
 
+  _myProfile: function() {
+    console.log('myProfile');
+  },
+
   render: function() {
 
     var info = this.state.info;
@@ -49,7 +53,20 @@ var Dashboard = React.createClass({
     return(
       <View style={styles.container}>
         <Photo user={user}/>
-        <Text>Welcome { info && info.name }</Text>
+        <Text style={styles.welcome}>{ info && info.name }</Text>
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          underlayColor='#1b3978'
+          onPress={this._myProfile}>
+          <Text style={styles.button}>Profile</Text>
+      	</TouchableHighlight>
+
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          underlayColor='#1b3978'
+          onPress={this._myFriends}>
+          <Text style={styles.button}>People</Text>
+      	</TouchableHighlight>
       </View>
     );
   },
@@ -155,6 +172,25 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'white',
+  },
+  buttonContainer: {
+    backgroundColor: '#3b5998',
+    borderRadius: 10,
+    margin: 5,
+    width: 200,
+
+  },
+  button: {
+    fontSize: 20,
+    fontWeight: '200',
+    color: 'white',
+    margin: 5,
+    textAlign: 'center'
+  },
+  welcome: {
+    fontSize: 32,
+    fontWeight: '100',
+
   }
 })
 

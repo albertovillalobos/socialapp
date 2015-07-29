@@ -3,6 +3,7 @@
 var React = require('react-native');
 var FBLogin = require('react-native-facebook-login');
 var FBLoginManager = require('NativeModules').FBLoginManager;
+var Parse = require('parse').Parse;
 
 var {
   StyleSheet,
@@ -21,6 +22,7 @@ var LoginScreen = React.createClass({
   getInitialState: function(){
     return {
       user: null,
+      loadingCurrentUser: true,
     };
   },
 
@@ -57,42 +59,76 @@ var LoginScreen = React.createClass({
     });
   },
 
+  _handleLogin: function(fbData) {
+    var Navigator = this.props.navigator;
+
+    Navigator.push({
+      component: Dashboard,
+      Name: 'Dashboard',
+      user: fbData
+    });
+
+    // // console.log('fbData', fbData)
+    // var credentials = fbData;
+    // let authData = {
+    //   id: credentials.userId,
+    //   access_token: credentials.token,
+    //   expiration_date: credentials.tokenExpirationDate
+    // };
+    // Parse.FacebookUtils.logIn(authData, {
+    //   success: () => {
+    //     Navigator.push({
+    //       component: Dashboard,
+    //       Name: 'Dashboard',
+    //       user: fbData
+    //     })
+    //     // _this.setState({ user : data.credentials });
+    //     // this.setState({loadingCurrentUser: false});
+    //
+    //   },
+    //   error: (user, error) => {
+    //     console.log(error)
+    //     switch (error.code) {
+    //       case Parse.Error.INVALID_SESSION_TOKEN:
+    //         Parse.User.logOut().then(()=> {
+    //           this._handleLogin(credentials)
+    //         })
+    //       break;
+    //       default:
+    //         this.setState({loadingCurrentUser: false});
+    //         alert(error.message);
+    //
+    //     }
+    //   }
+    // })
+  },
+
+
 
   render: function() {
     var _this = this;
     var user = this.state.user;
-    var Navigator = this.props.navigator;
-
     return (
 
       <View style={styles.container}>
-
-
         <Text style={styles.welcome}>SocialApp</Text>
         <FBLogin style={{ margin: 10, }}
           permissions={["email","user_friends"]}
           onLogin={function(data){
             console.log("Logged in!");
             console.log(data);
-            Navigator.push({
-              component: Dashboard,
-              Name: 'Dashboard',
-              user: data.credentials
-            })
+            _this._handleLogin(data.credentials);
             _this.setState({ user : data.credentials });
           }}
           onLogout={function(){
+            Parse.User.logOut();
             console.log("Logged out.");
             _this.setState({ user : null });
           }}
           onLoginFound={function(data){
             console.log("Existing login found.");
             console.log(data);
-            Navigator.push({
-              component: Dashboard,
-              Name: 'Dashboard',
-              user: data.credentials
-            })            
+            _this._handleLogin(data.credentials);
           }}
           onLoginNotFound={function(){
             console.log("No user logged in.");
@@ -154,7 +190,6 @@ var styles = StyleSheet.create({
     marginTop: 10,
     marginBottom:10,
     color: '#fff'
-
   },
   bottomBump: {
     marginBottom: 15,
