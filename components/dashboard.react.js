@@ -73,6 +73,7 @@ var Dashboard = React.createClass({
       <TabBarIOS selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
           selected={this.state.selectedTab == 'welcome'}
+          icon={{uri: 'featured'}}
           title='HOME'
           onPress={()=>{
             this.setState({
@@ -87,10 +88,22 @@ var Dashboard = React.createClass({
         </TabBarIOS.Item>
         <TabBarIOS.Item
           selected={this.state.selectedTab == 'people'}
+          icon={{uri: 'contacts'}}
           title='PEOPLE'
           onPress={()=>{
             this.setState({
               selectedTab: 'people'
+            })
+          }}>
+          <People/>
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab == 'search'}
+          icon={{uri: 'search'}}
+          title='search'
+          onPress={()=>{
+            this.setState({
+              selectedTab: 'search'
             })
           }}>
           <People/>
