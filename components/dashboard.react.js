@@ -13,6 +13,9 @@ var {
 } = React;
 
 var Photo = require('./Photo.react.js');
+var People = require('./People.react.js');
+// var TestView = require('./TestView.react.js');
+
 
 var Dashboard = React.createClass({
 
@@ -44,11 +47,22 @@ var Dashboard = React.createClass({
     console.log('myProfile');
   },
 
+
+  _people: function() {
+    // console.log(People);
+    var Navigator = this.props.navigator;
+    // console.log('navigator',Navigator)
+    Navigator.push({
+      name: 'People',
+      component: People,
+    });
+  },
+
   render: function() {
 
     var info = this.state.info;
     let user = this.props.route.user;
-    // console.log('user prop',user.userId);
+    // console.log('Dashboard',this.props.navigator);
 
     return(
       <View style={styles.container}>
@@ -64,7 +78,7 @@ var Dashboard = React.createClass({
         <TouchableHighlight
           style={styles.buttonContainer}
           underlayColor='#1b3978'
-          onPress={this._myFriends}>
+          onPress={this._people}>
           <Text style={styles.button}>People</Text>
       	</TouchableHighlight>
       </View>

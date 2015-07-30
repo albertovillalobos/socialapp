@@ -32,7 +32,7 @@ var LoginScreen = React.createClass({
       Navigator.push({
         name: 'Dashboard',
         route: Dashboard,
-        user: this.state.user
+        user: this.state.user,
       });
     } else {
       this._updateView();

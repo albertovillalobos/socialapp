@@ -15,8 +15,8 @@ var {
 var Photo = require('./Photo.react.js');
 
 var Dashboard = React.createClass({
-  
-})
+
+});
 
 var styles = StyleSheet.create({
 })
