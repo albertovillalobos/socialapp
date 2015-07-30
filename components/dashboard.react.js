@@ -9,7 +9,9 @@ var {
   TextInput,
   TouchableHighlight,
   ListView,
-  Image
+  Image,
+  TabBarIOS
+
 } = React;
 
 var Photo = require('./Photo.react.js');
@@ -22,6 +24,8 @@ var Dashboard = React.createClass({
   getInitialState: function(){
     return {
       info: null,
+      selectedTab: 'welcome',
+
     };
   },
 
@@ -65,23 +69,34 @@ var Dashboard = React.createClass({
     // console.log('Dashboard',this.props.navigator);
 
     return(
-      <View style={styles.container}>
-        <Photo user={user}/>
-        <Text style={styles.welcome}>{ info && info.name }</Text>
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor='#1b3978'
-          onPress={this._myProfile}>
-          <Text style={styles.button}>Profile</Text>
-      	</TouchableHighlight>
 
-        <TouchableHighlight
-          style={styles.buttonContainer}
-          underlayColor='#1b3978'
-          onPress={this._people}>
-          <Text style={styles.button}>People</Text>
-      	</TouchableHighlight>
-      </View>
+      <TabBarIOS selectedTab={this.state.selectedTab}>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab == 'welcome'}
+          title='HOME'
+          onPress={()=>{
+            this.setState({
+              selectedTab: 'welcome'
+            })
+          }}>
+        <View style={styles.container}>
+          <Photo user={user}/>
+          <Text style={styles.welcome}>{ info && info.name }</Text>
+        </View>
+
+        </TabBarIOS.Item>
+        <TabBarIOS.Item
+          selected={this.state.selectedTab == 'people'}
+          title='PEOPLE'
+          onPress={()=>{
+            this.setState({
+              selectedTab: 'people'
+            })
+          }}>
+          <People/>
+        </TabBarIOS.Item>
+      </TabBarIOS>
+
     );
   },
 

@@ -9,6 +9,8 @@
     "parse": "^1.5.0",
     "parse-react": "^0.4.2",
     "react-native": "^0.6.0",
-    "react-native-facebook-login": "^0.5.2"
+    "react-native-facebook-login": "^0.5.2",
+    "react-native-navbar": "^0.7.0",
+    "react-native-vector-icons": "^0.6.7"
   }
 }
