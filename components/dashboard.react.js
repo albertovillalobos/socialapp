@@ -16,6 +16,7 @@ var {
 
 var Photo = require('./Photo.react.js');
 var People = require('./People.react.js');
+var Icon = require('react-native-vector-icons/FontAwesome');
 // var TestView = require('./TestView.react.js');
 
 
@@ -68,8 +69,9 @@ var Dashboard = React.createClass({
     let user = this.props.route.user;
     // console.log('Dashboard',this.props.navigator);
 
-    return(
+    var Icon = require('react-native-vector-icons/FontAwesome');
 
+    return(
       <TabBarIOS selectedTab={this.state.selectedTab}>
         <TabBarIOS.Item
           selected={this.state.selectedTab == 'welcome'}
@@ -83,6 +85,7 @@ var Dashboard = React.createClass({
         <View style={styles.container}>
           <Photo user={user}/>
           <Text style={styles.welcome}>{ info && info.name }</Text>
+          <Icon name="rocket" size={30} color="#900" style={styles.icon} />
         </View>
 
         </TabBarIOS.Item>
