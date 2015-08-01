@@ -29,7 +29,7 @@ var Dashboard = React.createClass({
   componentWillMount: function(){
 
     var _this = this;
-    let user = this.props.user;
+    let user = this.this.props..user;
     var api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
 
     fetch(api)
@@ -43,21 +43,6 @@ var Dashboard = React.createClass({
         });
       })
       .done();
-  },
-
-  _myProfile: function() {
-    console.log('myProfile');
-  },
-
-
-  _people: function() {
-    // console.log(People);
-    var Navigator = this.props.navigator;
-    // console.log('navigator',Navigator)
-    Navigator.push({
-      name: 'People',
-      component: People,
-    });
   },
 
   render: function() {
