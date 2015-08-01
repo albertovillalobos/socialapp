@@ -29,7 +29,7 @@ var Dashboard = React.createClass({
   componentWillMount: function(){
 
     var _this = this;
-    let user = this.this.props..user;
+    let user = this.props.user;
     var api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
 
     fetch(api)
