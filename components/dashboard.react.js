@@ -16,8 +16,11 @@ var {
 
 var Photo = require('./Photo.react.js');
 var People = require('./People.react.js');
-var Icon = require('react-native-vector-icons/FontAwesome');
-// var TestView = require('./TestView.react.js');
+var FontAwesome = require('react-native-vector-icons/FontAwesome');
+var Icon = require('react-native-vector-icons/Ionicons');
+
+
+
 
 
 var Dashboard = React.createClass({
@@ -26,11 +29,11 @@ var Dashboard = React.createClass({
     return {
       info: null,
       selectedTab: 'welcome',
-
     };
   },
 
   componentWillMount: function(){
+
     var _this = this;
     let user = this.props.route.user;
     var api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
@@ -67,50 +70,36 @@ var Dashboard = React.createClass({
 
     var info = this.state.info;
     let user = this.props.route.user;
-    // console.log('Dashboard',this.props.navigator);
-
-    var Icon = require('react-native-vector-icons/FontAwesome');
 
     return(
       <TabBarIOS selectedTab={this.state.selectedTab}>
-        <TabBarIOS.Item
-          selected={this.state.selectedTab == 'welcome'}
-          icon={{uri: 'featured'}}
-          title='HOME'
-          onPress={()=>{
+        <FontAwesome.TabBarItem
+          title="Home"
+          iconName="ios-home-outline"
+          selectedIconName="ios-home"
+          selected={this.state.selectedTab === 'welcome'}
+          onPress={() => {
             this.setState({
-              selectedTab: 'welcome'
-            })
+              selectedTab: 'welcome',
+            });
           }}>
-        <View style={styles.container}>
-          <Photo user={user}/>
-          <Text style={styles.welcome}>{ info && info.name }</Text>
-          <Icon name="rocket" size={30} color="#900" style={styles.icon} />
-        </View>
-
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          selected={this.state.selectedTab == 'people'}
-          icon={{uri: 'contacts'}}
-          title='PEOPLE'
-          onPress={()=>{
+          <View style={styles.container}>
+            <Photo user={user}/>
+            <Text style={styles.welcome}>{ info && info.name }</Text>
+          </View>
+        </FontAwesome.TabBarItem>
+        <FontAwesome.TabBarItem
+          title="Home"
+          iconName="ios-home-outline"
+          selectedIconName="ios-home"
+          selected={this.state.selectedTab === 'people'}
+          onPress={() => {
             this.setState({
-              selectedTab: 'people'
-            })
-          }}>
-          <People/>
-        </TabBarIOS.Item>
-        <TabBarIOS.Item
-          selected={this.state.selectedTab == 'search'}
-          icon={{uri: 'search'}}
-          title='search'
-          onPress={()=>{
-            this.setState({
-              selectedTab: 'search'
-            })
+              selectedTab: 'people',
+            });
           }}>
           <People/>
-        </TabBarIOS.Item>
+        </FontAwesome.TabBarItem>
       </TabBarIOS>
 
     );
@@ -236,7 +225,7 @@ var styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: '100',
 
-  }
+  },
 })
 
 
