@@ -16,12 +16,6 @@ var {
 
 var Photo = require('./Photo.react.js');
 var People = require('./People.react.js');
-var FontAwesome = require('react-native-vector-icons/FontAwesome');
-var Icon = require('react-native-vector-icons/Ionicons');
-
-
-
-
 
 var Dashboard = React.createClass({
 
@@ -35,7 +29,7 @@ var Dashboard = React.createClass({
   componentWillMount: function(){
 
     var _this = this;
-    let user = this.props.route.user;
+    let user = this.props.user;
     var api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
 
     fetch(api)
@@ -69,39 +63,13 @@ var Dashboard = React.createClass({
   render: function() {
 
     var info = this.state.info;
-    let user = this.props.route.user;
+    let user = this.props.user;
 
     return(
-      <TabBarIOS selectedTab={this.state.selectedTab}>
-        <FontAwesome.TabBarItem
-          title="Home"
-          iconName="ios-home-outline"
-          selectedIconName="ios-home"
-          selected={this.state.selectedTab === 'welcome'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'welcome',
-            });
-          }}>
-          <View style={styles.container}>
-            <Photo user={user}/>
-            <Text style={styles.welcome}>{ info && info.name }</Text>
-          </View>
-        </FontAwesome.TabBarItem>
-        <FontAwesome.TabBarItem
-          title="Home"
-          iconName="ios-home-outline"
-          selectedIconName="ios-home"
-          selected={this.state.selectedTab === 'people'}
-          onPress={() => {
-            this.setState({
-              selectedTab: 'people',
-            });
-          }}>
-          <People/>
-        </FontAwesome.TabBarItem>
-      </TabBarIOS>
-
+      <View style={styles.container}>
+        <Photo user={user}/>
+        <Text style={styles.welcome}>{ info && info.name }</Text>
+      </View>
     );
   },
 

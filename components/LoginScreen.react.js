@@ -17,6 +17,7 @@ var credentials = {};
 var Photo = require('./Photo.react.js');
 var Info = require('./Info.react.js');
 var Dashboard = require('./Dashboard.react.js');
+var TabNav = require('./TabNav.react.js');
 
 var LoginScreen = React.createClass({
   getInitialState: function(){
@@ -30,8 +31,8 @@ var LoginScreen = React.createClass({
     console.log(this.state)
     if (this.state.user) {
       Navigator.push({
-        name: 'Dashboard',
-        route: Dashboard,
+        name: 'TabNav',
+        route: TabNav,
         user: this.state.user,
       });
     } else {
@@ -43,8 +44,8 @@ var LoginScreen = React.createClass({
   _moveOn: function() {
     var Navigator = this.props.navigator;
     Navigator.push({
-      name: 'Dashboard',
-      route: Dashboard
+      name: 'TabNav',
+      route: TabNav
     })
   },
 
@@ -63,8 +64,8 @@ var LoginScreen = React.createClass({
     var Navigator = this.props.navigator;
 
     Navigator.push({
-      component: Dashboard,
-      Name: 'Dashboard',
+      component: TabNav,
+      Name: 'TabNav',
       user: fbData
     });
 
