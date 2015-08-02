@@ -34,7 +34,7 @@ var TabNav = React.createClass({
 
     return(
       <TabBarIOS selectedTab={this.state.selectedTab}>
-        
+
         <FontAwesome.TabBarItem
           title="Home"
           iconName="home"
@@ -58,7 +58,20 @@ var TabNav = React.createClass({
               selectedTab: 'people',
             });
           }}>
-          <People/>
+          <People user={user}/>
+        </FontAwesome.TabBarItem>
+
+        <FontAwesome.TabBarItem
+          title="Search"
+          iconName="search"
+          selectedIconName="search"
+          selected={this.state.selectedTab === 'search'}
+          onPress={() => {
+            this.setState({
+              selectedTab: 'search',
+            });
+          }}>
+          <People user={user}/>
         </FontAwesome.TabBarItem>
       </TabBarIOS>
     );

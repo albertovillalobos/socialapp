@@ -11,21 +11,54 @@ var {
 
 var People = React.createClass({
 
+  _loadFriends: function()  {
+    var _this = this;
+    let user = this.props.user;
+
+    let friendlistId = this.state.friendlists[0].id;
+    let friendsApi = `https://graph.facebook.com/v2.4/${friendlistId}/members?access_token=${user.token}`;
+    console.log(friendsApi);
+  },
 
   getInitialState: function(){
     return {
-      info: null,
+      friendlists: null,
     };
   },
 
   componentWillMount: function(){
+
+    var _this = this;
+    let user = this.props.user;
+    // /{user-id}/friendlists
+    var api = `https://graph.facebook.com/v2.4/${user.userId}/friendlists?access_token=${user.token}`;
+
+    fetch(api)
+      .then((response) => response.json())
+      .then((responseData) => {
+        console.log(responseData.data[0].id)
+        _this.setState({
+          friendlists: responseData.data
+        });
+      })
+      .then()
+      .done();
 
   },
 
 
 
   render: function(){
-    var info = this.state.info;
+
+    // console.log(this.state.friendlists)
+    if (this.state.friendlists) {
+      console.log('friendlists up');
+      this._loadFriends();
+    }
+    else {
+      console.log('not loaded')
+    }
+    var friends = this.state.friends;
 
     return (
       <View style={styles.container}>
@@ -33,8 +66,6 @@ var People = React.createClass({
       </View>
     );
   }
-
-
 });
 
 var styles = StyleSheet.create({

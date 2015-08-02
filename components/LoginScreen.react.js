@@ -28,7 +28,7 @@ var LoginScreen = React.createClass({
   },
 
   componentWillMount: function(){
-    console.log(this.state)
+    // console.log(this.state)
     if (this.state.user) {
       Navigator.push({
         name: 'TabNav',
@@ -68,40 +68,6 @@ var LoginScreen = React.createClass({
       Name: 'TabNav',
       user: fbData
     });
-
-    // // console.log('fbData', fbData)
-    // var credentials = fbData;
-    // let authData = {
-    //   id: credentials.userId,
-    //   access_token: credentials.token,
-    //   expiration_date: credentials.tokenExpirationDate
-    // };
-    // Parse.FacebookUtils.logIn(authData, {
-    //   success: () => {
-    //     Navigator.push({
-    //       component: Dashboard,
-    //       Name: 'Dashboard',
-    //       user: fbData
-    //     })
-    //     // _this.setState({ user : data.credentials });
-    //     // this.setState({loadingCurrentUser: false});
-    //
-    //   },
-    //   error: (user, error) => {
-    //     console.log(error)
-    //     switch (error.code) {
-    //       case Parse.Error.INVALID_SESSION_TOKEN:
-    //         Parse.User.logOut().then(()=> {
-    //           this._handleLogin(credentials)
-    //         })
-    //       break;
-    //       default:
-    //         this.setState({loadingCurrentUser: false});
-    //         alert(error.message);
-    //
-    //     }
-    //   }
-    // })
   },
 
 
@@ -114,37 +80,37 @@ var LoginScreen = React.createClass({
       <View style={styles.container}>
         <Text style={styles.welcome}>SocialApp</Text>
         <FBLogin style={{ margin: 10, }}
-          permissions={["email","user_friends"]}
+          permissions={["email","user_friends","read_custom_friendlists"]}
           onLogin={function(data){
-            console.log("Logged in!");
-            console.log(data);
+            // console.log("Logged in!");
+            // console.log(data);
             _this._handleLogin(data.credentials);
             _this.setState({ user : data.credentials });
           }}
           onLogout={function(){
             Parse.User.logOut();
-            console.log("Logged out.");
+            // console.log("Logged out.");
             _this.setState({ user : null });
           }}
           onLoginFound={function(data){
-            console.log("Existing login found.");
-            console.log(data);
+            // console.log("Existing login found.");
+            // console.log(data);
             _this._handleLogin(data.credentials);
           }}
           onLoginNotFound={function(){
-            console.log("No user logged in.");
+            // console.log("No user logged in.");
             _this.setState({ user : null });
           }}
           onError={function(data){
-            console.log("ERROR");
-            console.log(data);
+            // console.log("ERROR");
+            // console.log(data);
           }}
           onCancel={function(){
-            console.log("User cancelled.");
+            // console.log("User cancelled.");
           }}
           onPermissionsMissing={function(data){
-            console.log("Check permissions!");
-            console.log(data);
+            // console.log("Check permissions!");
+            // console.log(data);
           }}
         />
 

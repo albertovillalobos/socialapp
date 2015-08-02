@@ -22,7 +22,6 @@ var Dashboard = React.createClass({
   getInitialState: function(){
     return {
       info: null,
-      selectedTab: 'welcome',
     };
   },
 
@@ -31,6 +30,7 @@ var Dashboard = React.createClass({
     var _this = this;
     let user = this.props.user;
     var api = `https://graph.facebook.com/v2.3/${user.userId}?fields=name,email&access_token=${user.token}`;
+    console.log(user);
 
     fetch(api)
       .then((response) => response.json())
