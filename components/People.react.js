@@ -16,12 +16,12 @@ var People = React.createClass({
     // console.log('fetchMembers',friendlistId);
     let _this = this;
     let user = this.props.user;
-    let friendsApi = `https://graph.facebook.com/v2.4/${friendlistId}/members?access_token=${user.token}`;
+    let friendsApi = `https://graph.facebook.com/v2.4/${friendlistId}?fields=id,name,list_type&access_token=${user.token}`;
 
     fetch(friendsApi)
       .then((response)=> response.json())
       .then((responseData)=> {
-        console.log(`looking at ${friendlistId}`,responseData);
+        console.log(`looking at ${friendlistId}`,responseData.name);
       })
 
   },
