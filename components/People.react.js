@@ -11,14 +11,21 @@ var {
 
 var People = React.createClass({
 
-  _loadFriends: function()  {
-    var _this = this;
+  // Fetch the members of a friendlist
+  _fetchMembers: function(friendlistId) {
+    // console.log('fetchMembers',friendlistId);
+    let _this = this;
     let user = this.props.user;
-
-    let friendlistId = this.state.friendlists[0].id;
     let friendsApi = `https://graph.facebook.com/v2.4/${friendlistId}/members?access_token=${user.token}`;
-    console.log(friendsApi);
+
+    fetch(friendsApi)
+      .then((response)=> response.json())
+      .then((responseData)=> {
+        console.log(`looking at ${friendlistId}`,responseData);
+      })
+
   },
+
 
   getInitialState: function(){
     return {
@@ -36,7 +43,11 @@ var People = React.createClass({
     fetch(api)
       .then((response) => response.json())
       .then((responseData) => {
-        console.log(responseData.data[0].id)
+        _this._fetchMembers(responseData.data[0].id);
+        for (var i = 0; i < responseData.data.length; i++) {
+          console.log(responseData.data[i].id)
+          _this._fetchMembers(responseData.data[i].id);
+        }
         _this.setState({
           friendlists: responseData.data
         });
@@ -51,13 +62,13 @@ var People = React.createClass({
   render: function(){
 
     // console.log(this.state.friendlists)
-    if (this.state.friendlists) {
-      console.log('friendlists up');
-      this._loadFriends();
-    }
-    else {
-      console.log('not loaded')
-    }
+    // if (this.state.friendlists) {
+    //   console.log('friendlists up');
+    //   this._loadFriends();
+    // }
+    // else {
+    //   console.log('not loaded')
+    // }
     var friends = this.state.friends;
 
     return (
