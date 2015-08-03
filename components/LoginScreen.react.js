@@ -61,6 +61,7 @@ var LoginScreen = React.createClass({
   },
 
   _handleLogin: function(fbData) {
+    console.log(fbData)
     var Navigator = this.props.navigator;
 
     Navigator.push({
@@ -80,7 +81,7 @@ var LoginScreen = React.createClass({
       <View style={styles.container}>
         <Text style={styles.welcome}>SocialApp</Text>
         <FBLogin style={{ margin: 10, }}
-          permissions={["email","user_friends","read_custom_friendlists"]}
+          permissions={["email","user_friends"]}
           onLogin={function(data){
             // console.log("Logged in!");
             // console.log(data);
